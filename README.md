@@ -1,3 +1,3 @@
 # Movie_Portal_backend
 
-This project is created for practice purpose . in that project backend of movie portal is created using Node.js ,express js & mongodb. 
+This project is created for practice purpose , The Restfull api are developed in the project using nodejs ,express js and mongodb. 
