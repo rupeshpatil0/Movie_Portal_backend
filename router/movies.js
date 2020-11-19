@@ -1,16 +1,17 @@
+const asyncmiddle =require("../middleware/async")
 const auth =require("../middleware/auth")
 const {validateMov ,Movies} =require("../models/movies")
 const express = require("express")
 
 const router = express.Router()
 
-router.get("/",async (req,res)=>{
+router.get("/",asyncmiddle(async (req,res)=>{
   const result = await Movies.find()
   res.send(result)
-})
+}))
 
 
-router.post("/",auth, async (req,res)=>{
+router.post("/",auth, asyncMiddle(async (req,res)=>{
     const {error} = validateMov(req.body)
     if (error) return res.status(400).send(error.details[0].message)
 
@@ -20,10 +21,10 @@ router.post("/",auth, async (req,res)=>{
 
    await movie.save()
    res.send(movie)
-})
+}))
 
 
-router.put("/:id",auth ,async(req ,res)=>{
+router.put("/:id",auth ,asyncMiddle(async(req ,res)=>{
   let  {error} = validateMov(req.body)
   if (error) return res.status(400).send(error.details[0].message)
   
@@ -41,14 +42,16 @@ router.put("/:id",auth ,async(req ,res)=>{
     res.send(movie)
   
 
-})
+}))
 
 
 
-router.delete("/:id",auth,(req,res)=>{
-  const {error} = validateMov(req.body)
-  if (error) return res.status(400).send(error.details[0].message)
-})
+router.delete("/:id",auth,asyncmiddle((req,res)=>{
+  const movie = await Movies.findByIdAndRemove(req.params.id)
+  res.send(movie)
+
+
+}))
 
 
 
