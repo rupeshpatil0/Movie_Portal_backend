@@ -1,3 +1,4 @@
+require("express-async-errors")
 const error =require("./middleware/err")
 const user =require("./router/user")
 const movies =require("./router/movies")
@@ -30,6 +31,6 @@ app.use(error)
 
 
 
-const port = process.env.PORT || 3010
+const port = process.env.PORT || 3000
 
 app.listen(port, () => console.log(`listening on port ${port}....`))

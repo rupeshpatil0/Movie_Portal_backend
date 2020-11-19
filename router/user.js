@@ -1,4 +1,3 @@
-const asyncMiddle =require("../middleware/async")
 const bcrypt =require("bcrypt")
 const {User ,validateuser} =require("../models/user")
 const express =require("express")
@@ -6,7 +5,7 @@ const express =require("express")
 const router =express.Router()
 
 
-router.post("/",asyncMiddle(async(req,res)=>{
+router.post("/",async(req,res)=>{
 const {error}=validateuser(req.body)
 if(error) return res.status(400).send(error.details[0].message)
 
@@ -29,7 +28,7 @@ const token = user.getToken()
         name: user.name,
         email: user.email
     })
-}))
+})
 
 
 

@@ -1,4 +1,4 @@
-const asyncMiddle =require("../middleware/async")
+
 const {User} =require("../models/user")
 
 const bcrypt =require("bcrypt")
@@ -8,7 +8,7 @@ const express =require("express")
 const router =express.Router()
 
 
-router.post("/",asyncMiddle(async(req,res)=>{
+router.post("/",async(req,res)=>{
 const {error}=validate(req.body)
 if(error) return res.status(400).send(error.details[0].message)
 
@@ -20,7 +20,7 @@ if(!isPassword) return res.status(400).send("email or password is not valid")
 
 const token =isUser.getToken()
 res.send(token)
-}))
+})
 
 
 

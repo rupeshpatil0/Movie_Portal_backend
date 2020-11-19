@@ -1,4 +1,3 @@
-const asyncMiddle =require("../middleware/async")
 const auth =require("../middleware/auth")
 const { Genres, validation } = require("../models/genres")
 const express = require("express")
@@ -7,17 +6,17 @@ const router = express.Router()
 
 
 
-router.get("/", asyncMiddle(async (req, res) => {
+router.get("/", async (req, res) => {
     const genres = await Genres
         .find()
         .populate("movies", "name -_id")
 
     res.send(genres)
     
-}))
+})
 
 
-router.post("/",auth,asyncMiddle((req, res) => {
+router.post("/",auth,(req, res) => {
     const { error } = validation(req.body)
     if (error) return res.status(400).send(error.details[0].message)
 
@@ -30,11 +29,11 @@ router.post("/",auth,asyncMiddle((req, res) => {
         .then(() => console.log("succesfully saved"))
         .catch((err) => console.log("err ocurred...", err.message))
     res.send(genre)
-}))
+})
 
 
 
-router.put("/:id",auth,asyncMiddle(async (req, res) => {
+router.put("/:id",auth,async (req, res) => {
     const { error } = validation(req.body)
     if (error) return res.status(400).send(error.details[0].message)
 
@@ -48,12 +47,12 @@ router.put("/:id",auth,asyncMiddle(async (req, res) => {
     })
     res.send(genre)
 
-}))
+})
 
-router.delete("/:id",auth, asyncMiddle(async (req, res) => {
+router.delete("/:id",auth,async (req, res) => {
     const genre = await Genres.findByIdAndRemove(req.params.id)
     res.send(genre)
-}))
+})
 
 module.exports = router
 
