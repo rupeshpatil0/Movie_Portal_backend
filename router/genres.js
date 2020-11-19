@@ -13,6 +13,7 @@ router.get("/", asyncMiddle(async (req, res) => {
         .populate("movies", "name -_id")
 
     res.send(genres)
+    
 }))
 
 

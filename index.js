@@ -1,3 +1,4 @@
+const error =require("./middleware/err")
 const user =require("./router/user")
 const movies =require("./router/movies")
 const genres = require("./router/genres")
@@ -25,7 +26,7 @@ app.use("/api/users",user)
 app.use("/api/auth",auth)
 
 
-
+app.use(error)
 
 
 
